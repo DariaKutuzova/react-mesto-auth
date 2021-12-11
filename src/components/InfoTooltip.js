@@ -14,7 +14,7 @@ function InfoTooltip({isOpen, onClose, isRegistered}) {
              onClick={handlePopupClose}>
             <div className="popup__container popup__container_type_tooltip">
                 <img className="popup__icon" src={isRegistered ? success : error}
-                     alt={isRegistered ? 'иконка успешной регистрации' : 'иконка не успешной регистрации'}/>
+                     alt={isRegistered ? 'иконка успешной регистрации' : 'иконка ошибки'}/>
                 <h3 className="popup__form-header popup__tooltip-title">{isRegistered ?
                     'Вы успешно зарегистрировались!' :
                     'Что-то пошло не так... Попробуйте ещё раз.'}

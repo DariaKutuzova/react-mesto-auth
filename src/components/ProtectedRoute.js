@@ -1,9 +1,9 @@
 import React from "react";
-import { Route, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
-function ProtectedRoute({ component: Component, ...props }) {
+function ProtectedRoute({ element: Component, ...props }) {
     return (
-        <Route element={props.loggedIn ? <Component {...props} /> : <Navigate to="/sign-in" />}/>
+            props.loggedIn ? <Component {...props} /> : <Navigate to="/sign-in" />
     );
 };
 

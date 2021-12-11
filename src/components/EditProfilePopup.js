@@ -22,14 +22,6 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
         }
     }, [currentUser, isOpen]);
 
-    // function handleChangeName(e) {
-    //     setName(e.target.value);
-    // }
-    //
-    // function handleChangeDescription(e) {
-    //     setDescription(e.target.value);
-    // }
-
     function handleSubmit(e) {
         // Запрещаем браузеру переходить по адресу формы
         e.preventDefault();
@@ -40,6 +32,7 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
             info: inputValues.info,
         });
     }
+
     //Если убрал курсор из инпута
     function blurHandler(e) {
         switch (e.target.name) {
@@ -61,7 +54,7 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
             ...inputValues,
             [e.target.name]: e.target.value
         });
-        setInputValid ({
+        setInputValid({
             ...inputValid,
             [e.target.name]: e.target.validity.valid
         });

@@ -12,12 +12,13 @@ import ConfirmPopup from "./ConfirmPopup";
 import Register from './Register';
 import Login from "./Login";
 import ProtectedRoute from "./ProtectedRoute";
+import * as auth from '../utils/auth';
 import InfoTooltip from "./InfoTooltip";
-// import {render} from "react-dom";
 import {
-    BrowserRouter,
     Routes,
-    Route
+    Route,
+    useNavigate,
+    useLocation
 } from "react-router-dom";
 
 
@@ -31,11 +32,17 @@ function App() {
     const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(false);
     const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
     const [isRegisterPopupOpen, setRegisterPopupOpen] = useState(false);
+    const [isRegistered, setRegistered] = useState(false);
+    const [authorizedEmail, setAuthorizedEmail] = useState('');
+    const [isSignOut, setSignOut] = useState(false);
 
     const [currentUser, setCurrentUser] = useState('');
     const [cards, setCards] = useState([]);
 
     const [loggedIn, setLoggedIn] = useState(false);
+    const [email, setEmail] = useState('');
+    const navigate = useNavigate()
+    const location = useLocation()
 
     useEffect(() => {
         Promise.all([api.getAllCards(), api.getApiUserInfo()])
@@ -54,6 +61,16 @@ function App() {
         document.addEventListener('keydown', close)
         return () => document.removeEventListener('keydown', close)
     }, []);
+
+    useEffect(() => {
+        handleTokenCheck()
+    }, [])
+
+    useEffect(() => {
+        if (loggedIn === true) {
+            navigate('/')
+        }
+    }, [loggedIn, navigate])
 
     function handleEditProfileClick() {
         setEditProfilePopupOpen(true);
@@ -92,6 +109,8 @@ function App() {
         setImagePopupOpen(false);
         setConfirmPopupOpen(false);
         setInfoTooltipPopupOpen(false);
+        setRegisterPopupOpen(false);
+        setLoginPopupOpen(false);
     }
 
     //Изменить инфо пользователя
@@ -160,39 +179,103 @@ function App() {
             })
     }
 
-    function handleLogin() {
-        setLoggedIn(true);
+    //Регистрация
+    function handleSignUp(email, password) {
+        console.log(email)
+        auth.register(email, password)
+            .then(
+                (data) => {
+                    console.log(data)
+                    closeAllPopups();
+                    setRegistered(true);
+                    setInfoTooltipPopupOpen(true);
+                    navigate('/sign-in');
+                })
+            .catch((err) => {
+                console.log(err);
+                setRegistered(false);
+                setInfoTooltipPopupOpen(false);
+            })
+    }
+
+    //Проверка токена
+    function handleTokenCheck() {
+        const jwt = localStorage.getItem("jwt")
+        if (jwt) {
+            const jwt = localStorage.getItem("jwt")
+            auth.checkToken(jwt)
+                .then((res) => {
+                    if (res) {
+                        setLoggedIn(true)
+                        setAuthorizedEmail(res.data.email)
+                    }
+                })
+                .catch((err) => {
+                    console.log(`Не удалось получить токен: ${err}`)
+                })
+        }
+    }
+
+    // const handleLogin = () => {
+    //     setLoggedIn(true)
+    // }
+
+    //Функция выхода из акка
+    function handleLogout() {
+        localStorage.removeItem('jwt')
+        setLoggedIn(false)
+        navigate('/sign-in')
+    }
+
+    //Функция входа
+    function handleAuthorize(email, password) {
+        auth.authorize(email, password)
+            .then((data) => {
+                console.log(data)
+                closeAllPopups();
+                localStorage.setItem('jwt', data.token);
+                setLoggedIn(true);
+                setAuthorizedEmail(email)
+                navigate('/');
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     }
 
     return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page">
-                <Header/>
+                <Header
+                    loggedIn={loggedIn}
+                    autoEmail={authorizedEmail}
+                    onSingOut={handleLogout}
+                />
                 <Routes>
                     <Route path="/sign-up" element={
-                        <Register isOpen={isRegisterPopupOpen}/>}/>
+                        <Register
+                            onAddUser={handleSignUp}
+                        />}/>
                     <Route path="/sign-in" element={
                         <Login
-                            // isOpen={isLoginPopupOpen}
+                            onEntryUser={handleAuthorize}
                         />}/>
                     <Route exact path="/" element={
-                        <ProtectedRoute loggedIn={loggedIn}>
-                            <Main onEditProfile={handleEditProfileClick}
-                                  onAddPlace={handleAddPlaceClick}
-                                  onEditAvatar={handleEditAvatarClick}
-                                  onCardClick={handleCardClick}
-                                  onCardLike={handleCardLike}
-                                  onCardDelete={handleDeleteClick}
-                                  cards={cards}
-                                  onLogin={handleLogin}
-                                  onRegister={handleRegisterClick}/>
-                        </ProtectedRoute>}
+                        <ProtectedRoute
+                            element={Main}
+                            loggedIn={loggedIn}
+                            onEditProfile={handleEditProfileClick}
+                            onAddPlace={handleAddPlaceClick}
+                            onEditAvatar={handleEditAvatarClick}
+                            onCardClick={handleCardClick}
+                            onCardLike={handleCardLike}
+                            onCardDelete={handleDeleteClick}
+                            cards={cards}
+                            onLogin={handleLoginClick}
+                            onRegister={handleRegisterClick}/>}
+
                     />
                 </Routes>
-                <Register
-                    // isOpen={isLoginPopupOpen}
-                    isOpen={true}
-                />
                 <Footer/>
                 <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}
                                   onUpdateUser={handleUpdateUser}/>
@@ -207,8 +290,7 @@ function App() {
                               onCardDelete={handleCardDelete}/>
                 <InfoTooltip onClose={closeAllPopups}
                              isOpen={isInfoTooltipPopupOpen}
-                    // isOpen={true}
-                    // isRegistered={isRegistered}
+                             isRegistered={isRegistered}
                 />
 
 

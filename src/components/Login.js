@@ -1,21 +1,25 @@
-// import React from 'react';
-// import { Link, withRouter } from 'react-router-dom';
 // import * as auth from '../auth.js';
-// import './styles/Login.css';
-// import Register from "./Register";
-//
+
 import SignPopup from "./SignPopup";
 import {useState} from "react";
 
-function Login({isOpen, onClose}) {
+function Login({isOpen, onClose, onEntryUser}) {
 
-    const [inputValues, setInputValues] = useState({email: '', password: ''});
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-    function handleSubmit(e) {
-
-        e.preventDefault();
+    function handleEmailChange(e) {
+        setEmail(e.target.value);
     }
 
+    function handlePasswordChange(e) {
+        setPassword(e.target.value);
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        onEntryUser(email, password);
+    }
 
     return (
         <SignPopup
@@ -27,12 +31,14 @@ function Login({isOpen, onClose}) {
             onSubmit={handleSubmit}
         >
             <input type="email" placeholder="Email" className={`popup__input popup__input_value_name sign__input`}
-                   id="name-input" name="email" minLength="2" maxLength="40" required value={inputValues.name}/>
-            <span id="name-input-error" className="popup__input-error popup__input-error_active sign__input-error"/>
+                   id="email-input" name="email" minLength="2" maxLength="40" required value={email}
+                   onChange={handleEmailChange}/>
+            <span id="email-input-error" className="popup__input-error popup__input-error_active sign__input-error"/>
             <input type="password" placeholder="Пароль"
                    className={`popup__input popup__input_value_job sign__input`}
-                   id="job-input" name="password" minLength="2" maxLength="200" required value={inputValues.email}/>
-            <span id="job-input-error" className="popup__input-error popup__input-error_active sign__input-error"/>
+                   id="password-input" name="password" minLength="2" maxLength="200" required value={password}
+                   onChange={handlePasswordChange}/>
+            <span id="password-input-error" className="popup__input-error popup__input-error_active sign__input-error"/>
         </SignPopup>
     );
 }
