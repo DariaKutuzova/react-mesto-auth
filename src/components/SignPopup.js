@@ -14,11 +14,7 @@ function SignPopup({isOpen, onClose, name, title, children, onSubmit, isDisabled
                       onSubmit={onSubmit}>
                     <h2 className="popup__form-header sign__header">{title}</h2>
                     {children}
-                    <button className={`popup__button sign__button ${isDisabled ?
-                        'popup__button_disabled'
-                        :
-                        ''
-                    }`}
+                    <button className={`popup__button sign__button`}
                             disabled={isDisabled} type="submit">{buttonText}
                     </button>
                     {linkToEntry}

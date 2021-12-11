@@ -29,6 +29,7 @@ function Login({isOpen, onClose, onEntryUser}) {
             onClose={onClose}
             buttonText={'Войти'}
             onSubmit={handleSubmit}
+            isDisabled={!email || !password}
         >
             <input type="email" placeholder="Email" className={`popup__input popup__input_value_name sign__input`}
                    id="email-input" name="email" minLength="2" maxLength="40" required value={email}

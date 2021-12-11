@@ -38,6 +38,7 @@ function Register({isOpen, onClose, onAddUser}) {
             buttonText={'Зарегистрироваться'}
             onSubmit={handleSubmit}
             linkToEntry={linkToEntry}
+            isDisabled={!email || !password}
         >
             <input type="email" placeholder="Email" className={`popup__input popup__input_value_name sign__input`}
                    id="email-input" name="email" minLength="2" maxLength="40" required value={email}
