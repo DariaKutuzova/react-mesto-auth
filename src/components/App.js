@@ -29,6 +29,8 @@ function App() {
     const [selectedCard, setSelectedCard] = useState(null);
     const [isConfirmPopupOpen, setConfirmPopupOpen] = useState(false);
     const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(false);
+    const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
+    const [isRegisterPopupOpen, setRegisterPopupOpen] = useState(false);
 
     const [currentUser, setCurrentUser] = useState('');
     const [cards, setCards] = useState([]);
@@ -73,6 +75,14 @@ function App() {
     function handleDeleteClick(card) {
         setSelectedCard(card);
         setConfirmPopupOpen(true);
+    }
+
+    function handleLoginClick() {
+        setLoginPopupOpen(true);
+    }
+
+    function handleRegisterClick() {
+        setRegisterPopupOpen(true);
     }
 
     function closeAllPopups() {
@@ -159,8 +169,12 @@ function App() {
             <div className="page">
                 <Header/>
                 <Routes>
-                    <Route path="/sign-up" element={<Register/>}/>
-                    <Route path="/sign-in" element={<Login/>}/>
+                    <Route path="/sign-up" element={
+                        <Register isOpen={isRegisterPopupOpen}/>}/>
+                    <Route path="/sign-in" element={
+                        <Login
+                            // isOpen={isLoginPopupOpen}
+                        />}/>
                     <Route exact path="/" element={
                         <ProtectedRoute loggedIn={loggedIn}>
                             <Main onEditProfile={handleEditProfileClick}
@@ -169,10 +183,16 @@ function App() {
                                   onCardClick={handleCardClick}
                                   onCardLike={handleCardLike}
                                   onCardDelete={handleDeleteClick}
-                                  cards={cards}/>
+                                  cards={cards}
+                                  onLogin={handleLogin}
+                                  onRegister={handleRegisterClick}/>
                         </ProtectedRoute>}
                     />
                 </Routes>
+                <Register
+                    // isOpen={isLoginPopupOpen}
+                    isOpen={true}
+                />
                 <Footer/>
                 <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}
                                   onUpdateUser={handleUpdateUser}/>
@@ -188,7 +208,10 @@ function App() {
                 <InfoTooltip onClose={closeAllPopups}
                              isOpen={isInfoTooltipPopupOpen}
                     // isOpen={true}
+                    // isRegistered={isRegistered}
                 />
+
+
             </div>
         </CurrentUserContext.Provider>
     )

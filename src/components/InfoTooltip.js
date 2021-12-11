@@ -1,21 +1,25 @@
 import error from "../images/error.svg";
 import success from "../images/success.svg"
 
-
 function InfoTooltip({isOpen, onClose, isRegistered}) {
 
+    function handlePopupClose(e) {
+        if (e.target.classList.contains('popup_opened')) {
+            onClose();
+        }
+    }
+
     return (
-        <div className={`popup popup_type_${name} ${isOpen ? 'popup_opened' : ''}`}
+        <div className={`popup ${isOpen ? 'popup_opened' : ''}`}
              onClick={handlePopupClose}>
-            <div className={`popup__container popup__container_type_${name}`}>
-                <form action="#" className={`popup__form popup__form_type_${name}`} name={`${name}`}>
-                    <img className="" src={isRegistered ? success : error}/>
-                    <h2 className="popup__form-header">{isRegistered ?
-                        'Вы успешно зарегистрировались!' :
-                        'Что-то пошло не так... Попробуйте ещё раз.'}
-                    </h2>
-                </form>
-                <button onClick={onClose} className={`popup__close popup__close_type_${name}`}
+            <div className="popup__container popup__container_type_tooltip">
+                <img className="popup__icon" src={isRegistered ? success : error}
+                     alt={isRegistered ? 'иконка успешной регистрации' : 'иконка не успешной регистрации'}/>
+                <h3 className="popup__form-header popup__tooltip-title">{isRegistered ?
+                    'Вы успешно зарегистрировались!' :
+                    'Что-то пошло не так... Попробуйте ещё раз.'}
+                </h3>
+                <button onClick={onClose} className={`popup__close`}
                         type="button" aria-label="Закрыть"/>
             </div>
         </div>
