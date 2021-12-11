@@ -17,8 +17,7 @@ import InfoTooltip from "./InfoTooltip";
 import {
     Routes,
     Route,
-    useNavigate,
-    useLocation
+    useNavigate
 } from "react-router-dom";
 
 
@@ -30,19 +29,15 @@ function App() {
     const [selectedCard, setSelectedCard] = useState(null);
     const [isConfirmPopupOpen, setConfirmPopupOpen] = useState(false);
     const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(false);
-    const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
-    const [isRegisterPopupOpen, setRegisterPopupOpen] = useState(false);
+
     const [isRegistered, setRegistered] = useState(false);
     const [authorizedEmail, setAuthorizedEmail] = useState('');
-    const [isSignOut, setSignOut] = useState(false);
 
     const [currentUser, setCurrentUser] = useState('');
     const [cards, setCards] = useState([]);
 
     const [loggedIn, setLoggedIn] = useState(false);
-    const [email, setEmail] = useState('');
     const navigate = useNavigate()
-    const location = useLocation()
 
     useEffect(() => {
         Promise.all([api.getAllCards(), api.getApiUserInfo()])
@@ -94,13 +89,6 @@ function App() {
         setConfirmPopupOpen(true);
     }
 
-    function handleLoginClick() {
-        setLoginPopupOpen(true);
-    }
-
-    function handleRegisterClick() {
-        setRegisterPopupOpen(true);
-    }
 
     function closeAllPopups() {
         setEditProfilePopupOpen(false);
@@ -109,8 +97,6 @@ function App() {
         setImagePopupOpen(false);
         setConfirmPopupOpen(false);
         setInfoTooltipPopupOpen(false);
-        setRegisterPopupOpen(false);
-        setLoginPopupOpen(false);
     }
 
     //Изменить инфо пользователя
@@ -216,10 +202,6 @@ function App() {
         }
     }
 
-    // const handleLogin = () => {
-    //     setLoggedIn(true)
-    // }
-
     //Функция выхода из акка
     function handleLogout() {
         localStorage.removeItem('jwt')
@@ -271,8 +253,7 @@ function App() {
                             onCardLike={handleCardLike}
                             onCardDelete={handleDeleteClick}
                             cards={cards}
-                            onLogin={handleLoginClick}
-                            onRegister={handleRegisterClick}/>}
+                        />}
 
                     />
                 </Routes>
