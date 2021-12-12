@@ -28,9 +28,13 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, cards, onCa
             </section>
 
             <section className="elements page__item" aria-label="Фотогалерея">
-                {cards.map(card =>
-                    <Card card={card} key={card._id} onCardClick={onCardClick} onCardLike={onCardLike}
+                {cards.map((card) => (
+                    <Card card={card}
+                          key={card._id}
+                          onCardClick={onCardClick}
+                          onCardLike={onCardLike}
                           onCardDelete={onCardDelete}/>
+                    )
                 )}
             </section>
         </main>
