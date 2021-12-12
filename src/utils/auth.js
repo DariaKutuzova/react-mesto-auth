@@ -16,13 +16,7 @@ export function register(email, password) {
         },
         body: JSON.stringify({email, password})
     })
-        .then((response) => {
-            return response.json();
-        })
-        .then((res) => {
-            return res;
-        })
-        .catch((err) => console.log(err));
+        .then(handleResponse)
 };
 
 export function authorize(email, password) {
