@@ -163,7 +163,6 @@ function App() {
 
     //Регистрация
     function handleSignUp(email, password) {
-        console.log(email)
         auth.register(email, password)
             .then(
                 () => {
