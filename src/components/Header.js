@@ -6,32 +6,27 @@ function Header({loggedIn, onSingOut, autoEmail}) {
 
     const [isActive, setIsActive] = useState(false);
 
-    const address = useLocation()
-
-    const menu = (
-        <nav className={`header__entry ${isActive ? 'header__show-menu' : ''}`}>
-            <p className="header__text">{autoEmail}</p>
-            <button className="header__button" type="button" onClick={handleSignOut}>Выйти</button>
-        </nav>
-    )
+    const address = useLocation();
 
     function handleSignOut() {
         onSingOut();
+        setIsActive(false);
     }
 
     function handleNavi() {
         setIsActive(!isActive);
-
     }
 
     return (
         <header className="header page__item">
+            {loggedIn && (
             <div className={`header__menu ${!isActive ? 'header__menu_active' : ''}`}>
                 <nav className={`header__entry header__show-menu`}>
                     <p className="header__text">{autoEmail}</p>
                     <button className="header__button" type="button" onClick={handleSignOut}>Выйти</button>
                 </nav>
             </div>
+            )}
             <div className="header__basic">
                 <img src={logo} alt="Лого шапки" className="header__logo"/>
                 {loggedIn && (
@@ -48,7 +43,6 @@ function Header({loggedIn, onSingOut, autoEmail}) {
                         </button>
                     </>
                 )}
-            </div>
             {!loggedIn && (
                 <p>
                     {address.pathname === '/sign-in' &&
@@ -57,6 +51,7 @@ function Header({loggedIn, onSingOut, autoEmail}) {
                     (<Link className="header__link" to="/sign-in">Войти</Link>)}
                 </p>
             )}
+            </div>
         </header>
     );
 }
