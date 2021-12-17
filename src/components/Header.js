@@ -9,8 +9,8 @@ function Header({loggedIn, onSingOut, autoEmail}) {
     const address = useLocation();
 
     function handleSignOut() {
-        onSingOut();
         setIsActive(false);
+        setTimeout(onSingOut, 700);
     }
 
     function handleNavi() {
