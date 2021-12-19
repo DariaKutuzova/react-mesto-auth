@@ -250,7 +250,6 @@ function App() {
                             onCardDelete={handleDeleteClick}
                             cards={cards}
                         />}
-
                     />
                 </Routes>
                 <Footer/>
@@ -267,8 +266,7 @@ function App() {
                               onCardDelete={handleCardDelete}/>
                 <InfoTooltip onClose={closeAllPopups}
                              isOpen={isInfoTooltipPopupOpen}
-                             isRegistered={isRegistered}
-                />
+                             isRegistered={isRegistered}/>
 
 
             </div>

@@ -1,3 +1,5 @@
+import React from 'react';
+
 function PopupWithForm({isOpen, onClose, name, title, children, onSubmit, isDisabled, buttonText}) {
 
     function handlePopupClose(e) {
