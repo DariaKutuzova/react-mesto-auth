@@ -19,7 +19,7 @@
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest",
+    "test": "./node_modules/.bin/jest",
     "update-snapshot": "jest --updateSnapshot",
     "eject": "react-scripts eject"
   },
@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "gh-pages": "^3.2.3",
-    "jest": "^27.4.5",
+    "jest-cli": "^27.4.5",
     "react-test-renderer": "^17.0.2"
   },
   "jest": {
