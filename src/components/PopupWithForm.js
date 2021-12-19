@@ -1,4 +1,4 @@
-function PopupWithForm({isOpen, onClose, name, title, children, onSubmit, isDisabled}) {
+function PopupWithForm({isOpen, onClose, name, title, children, onSubmit, isDisabled, buttonText}) {
 
     function handlePopupClose(e) {
         if (e.target.classList.contains('popup_opened')) {
@@ -19,7 +19,7 @@ function PopupWithForm({isOpen, onClose, name, title, children, onSubmit, isDisa
                         :
                         ''
                     }`}
-                            disabled={isDisabled} type="submit">Сохранить
+                            disabled={isDisabled} type="submit">{buttonText}
                     </button>
                 </form>
                 <button onClick={onClose} className={`popup__close popup__close_type_${name}`}

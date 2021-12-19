@@ -213,7 +213,11 @@ function App() {
                 navigate('/');
             })
             .catch((err) => {
-                console.log(err);
+                if (err===Number(400)) {
+                    alert('Не заполнено одно из полей')
+                } else if (err===Number(401)) {
+                    alert('Неправильно введен логин или пароль')
+                }
             })
     }
 

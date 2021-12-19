@@ -8,14 +8,6 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
     const [inputError, setInputError] = useState({name: '', link: ''});
     const [inputDirty, setInputDirty] = useState({name: false, link: false});
 
-    // function handleChangeName(evt) {
-    //     setName(evt.target.value);
-    // }
-    //
-    // function handleChangeLink(evt) {
-    //     setLink(evt.target.value);
-    // }
-
     function handleSubmit(e) {
 
         e.preventDefault();
@@ -70,6 +62,7 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
         <PopupWithForm
             name={'add-place'}
             title={'Новое место'}
+            buttonText={'Создать'}
             isOpen={isOpen}
             onClose={onClose}
             onSubmit={handleSubmit}
@@ -79,7 +72,6 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
             ${!inputValid.name && inputDirty.name ? 'popup__input_type_error'
         : ''}`}
                    id="place-input" name="name" minLength="2" maxLength="30" value={inputValues.name || ""}
-                   // onChange={handleChangeName}
                    onBlur={e => blurHandler(e)}
                    onChange={checkInputValid}
                    required/>
@@ -91,7 +83,6 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
                    ${!inputValid.link && inputDirty.link ? 'popup__input_type_error'
         : ''}`}
                    id="link-input" name="link" value={inputValues.link || ""}
-                   // onChange={handleChangeLink}
                    onBlur={e => blurHandler(e)}
                    onChange={checkInputValid} required/>
             <span id="link-input-error" className="popup__input-error  popup__input-error_active">
