@@ -1,10 +1,10 @@
-# Проект: Mesto
 
-## Описание
-Одностраничный сайт, позволяет делиться фотографиями наподобие Инстаграм.
-Работа написана на фреймворке React.
+# Project: Mesto
 
-## Использованы технологии
+## Description
+The "Mesto" project on React is an application similar to Instagram on React.
+
+## Stack
 - Flexbox
 - Grid Layout
 - Positioning Elements
@@ -15,42 +15,51 @@
 - Webpack
 - React JS
 
-## Функциональность
-- Сайт адаптирован для различных разрешений устройств с помощью медиазапросов.
-- По клику на кнопку "Изменить" появляется форма: ФИО и Род деятельности; добавить место; изменить аватарку.
-- Данные на страницу подтягиваются с сервера (ФИО, род деятельности, аватарка, фотографии в блоке фото).
-- По клику на картинку открывается попап с увеличенным изображением.
-- Данные подтягиваются со страницы в форму
-- Данные можно изменить при помощи форм, которые отправляют информацию на сервер.
-- Реализация "Лайк" со счетчиком.
-- Валидация форм на стороне клиента.
-- Регистрация, авторизация пользователя.
-- Анимированное выпадающее меню в мобильной версии
-
-## Планы по доработке
-- Валидация форм через хук
+## Functionality
+- Adding and deleting cards
+- Likes
+- Changing personal information in the profile
+- Validating forms 
+- The project is connected to the API 
+- Implemented authorization and registration of the user, as well as automatic authorization through token verification when the page is refreshed.
 
 
-## Работа с проектом
-  Для работы с проектом потребуется интерпретатор командной строки и установленный Node.js
+## How to work with project:
+To work with the project, you will need a command line interpreter and installed Node.js
   
-  Клонируем проект:
-  git clone git@github.com:dariakutuzova/mesto-react.git
+  Clone project:
+```
+git clone git@github.com:dariakutuzova/react-mesto-auth.git
+```
   
-  Переходим в директорию проекта:
-  cd path_to_the_project_directory
+  Go to directory:
+  ```
+  cd react-mesto-auth
+```
   
-  Устанавливаем зависимости:
+  Install dependencies:
+  ```
   npm install
+  ```
   
-  Для отслеживания результата запускаем локальный сервер:
-  npm start - в браузере откроется страница с проектом, либо можно открыть самостоятельно по адресу http://localhost:3000/
+  To look result start up local:
+  ```
+  npm start
+  ```
+  Page with project will be opened in browser, or you can open it by yourself http://localhost:3000/
   
-  Сборка проекта:
+  To build project:
+  ```
   npm run build
+  ```
   
-  Чтобы проверить результат после сборки, устанавливаем локальный сервер:
+  To check result after build, install local server:
+  ```
   npm install -g serve
+  ```
   
-  Запускаем собранный проект:
-  serve -s build - в браузере откроется страница с проектом, либо можно открыть самостоятельно по адресу http://localhost:3000/
+  To run builded project:
+  ```
+  serve -s build
+  ```
+  Page with project will be opened in browser, or you can open it by yourself http://localhost:3000/
